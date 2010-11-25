@@ -66,7 +66,7 @@
     [[self xmppStream] setHostName:@"ohthou.com"];
     [[self xmppStream] setHostPort:5222];
     
-    XMPPJID *jid = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@", username] 
+    XMPPJID *jid = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@", [username stringByAppendingString:@"@ohthou.com"]] 
                                  resource:@"OhThou Client"];
 	
 	[[self xmppStream] setMyJID:jid];
@@ -90,8 +90,12 @@
         [self.delegate managerFailedToConnect];
     }
 }
-
 - (void)sendMessageToUser:(NSString*)username
+{
+    [self sendMessageToUser:username message:@"<3"];
+}
+
+- (void)sendMessageToUser:(NSString*)username message:(NSString*)msg
 {
     XMPPJID *jid = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@", username]];
     
@@ -103,7 +107,7 @@
     } 
     
     NSXMLElement *body = [NSXMLElement elementWithName:@"body"];
-    [body setStringValue:@"<3"];
+    [body setStringValue:msg];
     
     NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
     [message addAttributeWithName:@"type" stringValue:@"chat"];
@@ -210,9 +214,9 @@
 - (void)xmppRosterUserDidChangePresence:(XMPPPresence *)presence
 {
     // NSLog(@"---------- xmppRosterDidChange ----------");
-    // NSLog(@"Presence User: %@", [presence from]);
-    // NSLog(@"Presence Type: %@", [presence type]);
-    if ([[[presence from] bare] isEqualToString:_username])
+    NSLog(@"Presence User: %@", [[presence from] bare] );
+    NSLog(@"Presence Usern: %@", [_username stringByAppendingString:@"@ohthou.com"]);
+    if ([[[presence from] bare] isEqualToString:[[_username stringByAppendingString:@"@ohthou.com"] lowercaseString]])
         return;
     
     NSString *key = [NSString stringWithFormat:@"%@%@", [[presence from] bare], [presence type]];
@@ -226,7 +230,7 @@
             return;
     } 
 
-    if (self.yourFriend && [self.yourFriend isEqualToString:[[presence from] bare]])
+    if (self.yourFriend && [[[presence from] bare] isEqualToString:[[self.yourFriend stringByAppendingString:@"@ohthou.com"] lowercaseString]])
     {
         if ([[presence type] isEqualToString:@"available"])
         {

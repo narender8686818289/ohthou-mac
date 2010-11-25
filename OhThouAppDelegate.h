@@ -16,6 +16,10 @@
 #import "XMPPPing.h"
 #import "XMPPTime.h"
 #import "XMPPManager.h"
+#define SERVER_ROOT_URL @"http://10.0.1.17:3000"
+
+@class CBIdentity;
+@class Friend;
 
 @interface OhThouAppDelegate : NSObject <NSApplicationDelegate,XMPPManagerDelegate> {
 	XMPPStream *_xmppStream;
@@ -28,18 +32,39 @@
 	XMPPTime *_xmppTime;
 	    
     NSWindow *window;
-    
     XMPPManager *_manager;
     
-    IBOutlet NSTextField *_username;
-    IBOutlet NSTextField *_password;
-    IBOutlet NSTextField *_friend;
-    IBOutlet NSTextField *_connectedTo;
-    IBOutlet NSTextField *_heart;
+    // account view
+    IBOutlet NSImageView *_avatarImageView;
+    IBOutlet NSTextField *_name;
+    IBOutlet NSTextField *_sentence;
+    IBOutlet NSProgressIndicator *_spinner;
+    IBOutlet NSTextField *_saveChangesLabel;
+    
+    NSString *_xmppusername;
+    NSString *_xmpppassword;
+    NSString *_xmppfriend;
+    NSString *_userID;
+    
+    Friend *_friend;
+    
+    NSStatusItem *_statusItem;
+    
+    int counter;
+    int repeat;
 }
 
-- (IBAction) connect:(id)sender;
 - (IBAction) sendmessage:(id)sender;
+- (IBAction) pickAvatar:(id)sender;
+- (IBAction) showPreferences:(id)sender;
+- (IBAction) removeAllUserDefaults:(id)sender;
+
+- (CBIdentity*)getUserInformation;
+- (BOOL) hasAvatar;
+- (NSString *) pathForAvatarFile;
+- (void) closePreferencesWindow;
+- (void) retrieveXMPPName;
+- (void) signUp;
 
 @property (assign) IBOutlet NSWindow *window;
 
@@ -50,5 +75,9 @@
 @property (nonatomic, readonly) XMPPCapabilities *xmppCapabilities;
 @property (nonatomic, readonly) XMPPCapabilitiesCoreDataStorage *xmppCapabilitiesStorage;
 @property (nonatomic, readonly) XMPPPing *xmppPing;
+
+@property (nonatomic, readonly) NSString *userID;
+@property (nonatomic, readonly) XMPPManager *manager;
+@property (nonatomic, retain) Friend *myfriend;
 
 @end
