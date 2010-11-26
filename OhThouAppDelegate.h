@@ -16,7 +16,7 @@
 #import "XMPPPing.h"
 #import "XMPPTime.h"
 #import "XMPPManager.h"
-#define SERVER_ROOT_URL @"http://10.0.1.17:3000"
+#define SERVER_ROOT_URL @"http://ohthou.com"
 
 @class CBIdentity;
 @class Friend;

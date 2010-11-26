@@ -57,7 +57,7 @@ extern NSString * kRFSRVResolverErrorDomain;
 
 @property (nonatomic, assign, readonly, getter=isFinished) BOOL     finished;		// observable
 @property (nonatomic, retain, readonly) NSError *                   error;			// observable
-@property (nonatomic, retain, readonly) NSArray *                   results;		// of RFSRVRecord, observable
+@property (nonatomic, retain, readonly) NSMutableArray *                   results;		// of RFSRVRecord, observable
 
 
 + (RFSRVResolver *)resolveWithStream:(XMPPStream *)xmppStream delegate:(id)delegate;

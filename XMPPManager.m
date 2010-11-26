@@ -15,7 +15,6 @@
 @synthesize username = _username;
 @synthesize password = _password;
 @synthesize delegate = _delegate;
-@synthesize autoAccept = _autoAccept;
 @synthesize yourFriend = _yourFriend;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,7 +42,6 @@
     if (self != nil) {
         _isAuthenticating = NO;
         _isOpen = NO;
-        _autoAccept = YES;
         self.delegate = delegate;
         
         _lastPresenceUpdateForUser = [[NSMutableDictionary alloc] init];
@@ -213,9 +211,6 @@
 
 - (void)xmppRosterUserDidChangePresence:(XMPPPresence *)presence
 {
-    // NSLog(@"---------- xmppRosterDidChange ----------");
-    NSLog(@"Presence User: %@", [[presence from] bare] );
-    NSLog(@"Presence Usern: %@", [_username stringByAppendingString:@"@ohthou.com"]);
     if ([[[presence from] bare] isEqualToString:[[_username stringByAppendingString:@"@ohthou.com"] lowercaseString]])
         return;
     
@@ -230,18 +225,15 @@
             return;
     } 
 
-//    if (self.yourFriend && [[[presence from] bare] isEqualToString:[[self.yourFriend stringByAppendingString:@"@ohthou.com"] lowercaseString]])
+    if ([[presence type] isEqualToString:@"available"])
     {
-        if ([[presence type] isEqualToString:@"available"])
-        {
-            [self.delegate managerDidReceiveSignonForUser:[[presence from] bare]];
-        }
-        else if ([[presence type] isEqualToString:@"unavailable"])
-        {
-            [self.delegate managerDidReceiveLogoffForUser:[[presence from] bare]];
-        }        
-        [_lastPresenceUpdateForUser setObject:[NSDate date] forKey:key];
+        [self.delegate managerDidReceiveSignonForUser:[[presence from] bare]];
     }
+    else if ([[presence type] isEqualToString:@"unavailable"])
+    {
+        [self.delegate managerDidReceiveLogoffForUser:[[presence from] bare]];
+    }        
+    [_lastPresenceUpdateForUser setObject:[NSDate date] forKey:key];
 }
 
 - (void)xmppRosterDidChange:(XMPPRosterMemoryStorage *)sender
@@ -297,10 +289,6 @@
 - (void)xmppRoster:(XMPPRoster *)sender didReceiveBuddyRequest:(XMPPPresence *)presence
 {
     [self.delegate managerDidReceiveBuddyRequestFrom:[presence from]];
-    
-//    // autoaccept all incoming requests
-//    if (_autoAccept)
-//        [sender acceptBuddyRequest:[presence from]];
 }
 
 

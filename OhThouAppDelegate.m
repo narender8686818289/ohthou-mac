@@ -333,9 +333,16 @@
 
 }
 
+- (void)connectToServer
+{
+    [_manager loginWithUsername:_xmppusername password:_xmpppassword];
+}
+
 -(void)managerFailedToConnect
 {
     NSLog(@"failedtoConnect");
+    // could not connect, lets try again in a bit
+    [self performSelector:@selector(connectToServer) withObject:nil afterDelay:15];
 }
 
 - (void) animate

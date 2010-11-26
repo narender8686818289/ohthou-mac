@@ -93,7 +93,7 @@ NSString * kRFSRVResolverErrorDomain = @"kRFSRVResolverErrorDomain";
 
 @property (nonatomic, assign, readwrite, getter=isFinished) BOOL    finished;
 @property (nonatomic, retain, readwrite) NSError *                  error;
-@property (nonatomic, retain, readwrite) NSArray *                  results;
+@property (nonatomic, retain, readwrite) NSMutableArray *                  results;
 @property (nonatomic, retain, readwrite) NSTimer *                  timeoutTimer;
 
 // Forward declarations

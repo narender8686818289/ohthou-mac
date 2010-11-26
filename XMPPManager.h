@@ -24,7 +24,6 @@
 @interface XMPPManager : NSObject {
     BOOL _isAuthenticating;
     BOOL _isOpen;
-    BOOL _autoAccept;
     
     NSString *_username;
     NSString *_password;
@@ -47,5 +46,4 @@
 @property (nonatomic, copy) NSString *password;
 @property (nonatomic, copy) NSString *yourFriend;
 @property (nonatomic, retain) NSObject<XMPPManagerDelegate> *delegate;
-@property (nonatomic, assign) BOOL autoAccept;
 @end

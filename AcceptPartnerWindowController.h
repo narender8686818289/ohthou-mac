@@ -19,4 +19,5 @@
 
 - (void) setSaveChangesEnabled:(BOOL)enabled;
 - (void) refreshDatasource;
+- (void) runRefreshDatasourceInterval;
 @end
