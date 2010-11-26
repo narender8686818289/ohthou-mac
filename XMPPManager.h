@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "XMPPJID.h"
 
 @protocol XMPPManagerDelegate
 
@@ -15,6 +16,7 @@
 -(void)managerDidReceiveMessage:(NSString*)message fromUser:(NSString*)username;
 -(void)managerDidReceiveSignonForUser:(NSString*)username;
 -(void)managerDidReceiveLogoffForUser:(NSString*)username;
+-(void)managerDidReceiveBuddyRequestFrom:(XMPPJID*)jid;
 
 @end
 

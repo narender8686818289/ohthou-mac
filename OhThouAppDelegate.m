@@ -15,6 +15,7 @@
 #import "JSON.h"
 #import "AcceptPartnerWindowController.h"
 #import "Friend.h"
+#import "XMPPJID.h"
 
 @implementation OhThouAppDelegate
 
@@ -309,7 +310,7 @@
             [self animateStatusIcon];
         }
     }
-    else if ([message isEqualToString:@"accept"])
+    else if ([message isEqualToString:@"accept"] && _xmppfriend == nil)
     {
         [_acceptPartner showWindow:self];
         [_acceptPartner refreshDatasource];
@@ -329,6 +330,17 @@
     if ([username isEqualToString:_xmppfriend])
         [_statusItem setImage:[NSImage imageNamed:@"(h)_offline.png"]];
 }
+
+-(void)managerDidReceiveBuddyRequestFrom:(XMPPJID*)jid
+{
+    if ([[jid bare] isEqualToString:_xmppfriend])
+    {
+        [_xmppRoster acceptBuddyRequest:jid];
+    }
+}
+
+#pragma mark -
+#pragma mark Pref window methods
 
 - (CBIdentity*)getUserInformation
 {	

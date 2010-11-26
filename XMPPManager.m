@@ -296,9 +296,11 @@
  **/
 - (void)xmppRoster:(XMPPRoster *)sender didReceiveBuddyRequest:(XMPPPresence *)presence
 {
-    // autoaccept all incoming requests
-    if (_autoAccept)
-        [sender acceptBuddyRequest:[presence from]];
+    [self.delegate managerDidReceiveBuddyRequestFrom:[presence from]];
+    
+//    // autoaccept all incoming requests
+//    if (_autoAccept)
+//        [sender acceptBuddyRequest:[presence from]];
 }
 
 
