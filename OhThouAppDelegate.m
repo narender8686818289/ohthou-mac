@@ -320,7 +320,20 @@
     [[_acceptPartner window] setFrameOrigin:newOrigin];
 }
 
--(void)managerDidConnect
+- (void) sendPingMessage
+{
+    if ([_xmppStream isAuthenticated])
+    {
+        id <XMPPUser> user = [_xmppRoster userForJID:[XMPPJID jidWithString:[_friend.jabberName stringByAppendingString:@"@ohthou.com"]]];
+        if ([user isOnline])
+            [self.manager sendMessageToUser:[_friend.jabberName stringByAppendingString:@"@ohthou.com"] 
+                                    message:@"ping"];
+        
+        [self performSelector:@selector(sendPingMessage) withObject:nil afterDelay:60];
+    }
+}
+
+- (void) managerDidConnect
 {
     NSLog(@"connected");
     
@@ -328,6 +341,7 @@
     {
         [self showAcceptWindow];
     } else {
+        [self sendPingMessage];
         [self addStatusBarIcon];  
     }
 
@@ -393,6 +407,11 @@
     {
         // set friend to online
         [_statusItem setImage:[NSImage imageNamed:@"(h).png"]];
+        [self setMenu:YES];    
+    }
+    else if ([message isEqualToString:@"ping"] && _xmppfriend)
+    {
+        // set friend to online
         [self setMenu:YES];    
     }
 }
@@ -520,7 +539,7 @@
         // Use when fetching text data
         NSString *responseString = [request responseString];
         NSDictionary *response = [responseString JSONValue];
-        
+        NSLog(@"Response:%@", response);
         NSNumber *statuscode = [response objectForKey:@"status_code"];
         if ([statuscode intValue] == 0)
         {
