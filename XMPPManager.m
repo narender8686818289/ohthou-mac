@@ -99,12 +99,12 @@
 {
     XMPPJID *jid = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@", username]];
     
-    id <XMPPUser> user = [[self xmppRoster] userForJID:jid];
-    if (!user)
-    {
-        // user is not in our roster, add him
-        [self addBuddy:username withNickname:nil];
-    } 
+//    id <XMPPUser> user = [[self xmppRoster] userForJID:jid];
+//    if (!user)
+//    {
+//        // user is not in our roster, add him
+//        [self addBuddy:username withNickname:nil];
+//    } 
     
     NSXMLElement *body = [NSXMLElement elementWithName:@"body"];
     [body setStringValue:msg];

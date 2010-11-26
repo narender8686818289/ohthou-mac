@@ -305,25 +305,24 @@
     if ([message isEqualToString:@"<3"])
     {
         if (repeat == 10)
+        {
             [self animateStatusIcon];
-//        [_heart setHidden:NO];
-//        [NSObject cancelPreviousPerformRequestsWithTarget:self];
-//        [self performSelector:@selector(removeHeart) withObject:nil afterDelay:3.0];        
+        }
     }
 }
 
 -(void)managerDidReceiveSignonForUser:(NSString*)username
 {
     NSLog(@"Signon: %@", username);
-//    [_connectedTo setStringValue:username];
-    [_statusItem setImage:[NSImage imageNamed:@"(h).png"]];
+    if ([username isEqualToString:_xmppfriend])
+        [_statusItem setImage:[NSImage imageNamed:@"(h).png"]];
 }
 
 -(void)managerDidReceiveLogoffForUser:(NSString*)username
 {
     NSLog(@"Signoff: %@", username);
-//    [_connectedTo setStringValue:@""];
-    [_statusItem setImage:[NSImage imageNamed:@"(h)_offline.png"]];
+    if ([username isEqualToString:_xmppfriend])
+        [_statusItem setImage:[NSImage imageNamed:@"(h)_offline.png"]];
 }
 
 - (CBIdentity*)getUserInformation

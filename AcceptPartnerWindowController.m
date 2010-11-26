@@ -115,6 +115,7 @@
         {
             [[NSApp delegate] setMyfriend:[_items objectAtIndex:[cell tag]]];
             [[[NSApp delegate] manager] addBuddy:[fr.jabberName stringByAppendingString:@"@ohthou.com"] withNickname:fr.name];
+            [[[NSApp delegate] manager] sendMessageToUser:[fr.jabberName stringByAppendingString:@"@ohthou.com"] message:@"accept"];
             [self close];
         } else {
             // TODO: show error
