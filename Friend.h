@@ -16,6 +16,7 @@
     NSString *_name;
     
     NSImage *_image;
+    NSImage *_thumbImage;
 }
 
 - (id) initWithDictionary:(NSDictionary*)friend;
@@ -25,5 +26,6 @@
 @property (nonatomic, copy) NSString *jabberName;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, readonly) NSImage *image;
+@property (nonatomic, readonly) NSImage *thumbImage;
 
 @end

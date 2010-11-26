@@ -68,6 +68,8 @@
 - (void) closePreferencesWindow;
 - (void) retrieveXMPPName;
 - (void) signUp;
+- (void) addStatusBarIcon;
+- (void) prepareApplication;
 
 @property (assign) IBOutlet NSWindow *window;
 

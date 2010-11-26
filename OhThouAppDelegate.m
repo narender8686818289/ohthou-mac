@@ -68,6 +68,18 @@
 	[defaults removePersistentDomainForName:@"com.ohthou.client.mac"];
 	// com.yourcompany.appname is the Bundle Identifier for this app
 	[defaults synchronize];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager]; 
+    [fileManager removeItemAtPath:[self pathForAvatarFile] error:nil];
+    [_xmppStream disconnect];
+    
+    [_name setStringValue:@""];
+    [_sentence setStringValue:@""];
+    [_name becomeFirstResponder];
+    
+    [_acceptPartner close];
+    
+    [self prepareApplication];
 }
 
 - (void) setMyfriend:(Friend *)f
@@ -81,14 +93,38 @@
     
     if ([_xmppStream isAuthenticated] && _statusItem == nil)
     {
-        _statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
-        [_statusItem setImage:[NSImage imageNamed:@"(h)_offline.png"]];
-        [_statusItem setHighlightMode:YES];        
+        [self addStatusBarIcon];      
     }
 }
 
+- (void) addStatusBarIcon
+{
+    _statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
+    NSMenu *menu = [[NSMenu alloc] init];
+
+    NSMenuItem *usernameItem = [[[NSMenuItem alloc] init] autorelease];
+    [usernameItem setTitle:[_friend.name stringByAppendingString:@" *wink*"]];
+    [usernameItem setAction:@selector(sendmessage:)];
+    [usernameItem setImage:_friend.thumbImage];
+    NSMenuItem *logoutItem = [[[NSMenuItem alloc] initWithTitle:@"Disconnect" action:@selector(removeAllUserDefaults:) keyEquivalent:@""] autorelease];
+
+                            
+    [menu addItem:usernameItem];
+    [menu addItem:[NSMenuItem separatorItem]];
+    [menu addItem:logoutItem];
+    
+    [_statusItem setMenu:[menu autorelease]];
+    [_statusItem setImage:[NSImage imageNamed:@"(h)_offline.png"]];
+    [_statusItem setHighlightMode:YES];  
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	[_xmppStream addDelegate:self];
+    [self prepareApplication];
+}
+
+- (void) prepareApplication
+{
+    [_xmppStream addDelegate:self];
 	[_xmppReconnect addDelegate:self];
 	[_xmppCapabilities addDelegate:self];
 	[_xmppPing addDelegate:self];
@@ -120,7 +156,7 @@
     NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"kName"];    
     if (name)
         [_name setStringValue:name];
-
+    
     NSString *sentence = [[NSUserDefaults standardUserDefaults] objectForKey:@"kSentence"];
     if (sentence)
         [_sentence setStringValue:sentence];
@@ -129,15 +165,15 @@
     {
         [self showPreferences:nil];
     }
-
+    
     
     // retrieve username and password
     _xmppusername = [[NSUserDefaults standardUserDefaults] objectForKey:@"kUsername"];    
     _xmpppassword = [[NSUserDefaults standardUserDefaults] objectForKey:@"kPassword"];
-//    if (!_xmppusername || !_xmpppassword)
-//    {
-//        [self retrieveXMPPName];
-//    }
+    //    if (!_xmppusername || !_xmpppassword)
+    //    {
+    //        [self retrieveXMPPName];
+    //    }
     
     _userID = [[NSUserDefaults standardUserDefaults] objectForKey:@"kUserID"];
     
@@ -152,7 +188,7 @@
         [_manager loginWithUsername:_xmppusername password:_xmpppassword];
     }
     
-    _acceptPartner = [[AcceptPartnerWindowController alloc] initWithWindowNibName:@"AcceptPartnerWindow"];    
+    _acceptPartner = [[AcceptPartnerWindowController alloc] initWithWindowNibName:@"AcceptPartnerWindow"];        
 }
 
 - (IBAction) pickAvatar:(id)sender
@@ -186,7 +222,7 @@
 
 - (IBAction) sendmessage:(id)sender
 {
-    [_manager sendMessageToUser:_xmppfriend];
+    [_manager sendMessageToUser:[_xmppfriend stringByAppendingString:@"@ohthou.com"]];
 }
 
 - (IBAction) showPreferences:(id)sender
@@ -261,9 +297,7 @@
     {
         [_acceptPartner showWindow:self];
     } else {
-        _statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
-        [_statusItem setImage:[NSImage imageNamed:@"(h)_offline.png"]];
-        [_statusItem setHighlightMode:YES];   
+        [self addStatusBarIcon];  
     }
 
 }
@@ -320,14 +354,14 @@
 -(void)managerDidReceiveSignonForUser:(NSString*)username
 {
     NSLog(@"Signon: %@", username);
-    if ([username isEqualToString:_xmppfriend])
+    if ([username isEqualToString:[[_xmppfriend stringByAppendingFormat:@"@ohthou.com"] lowercaseString]])
         [_statusItem setImage:[NSImage imageNamed:@"(h).png"]];
 }
 
 -(void)managerDidReceiveLogoffForUser:(NSString*)username
 {
     NSLog(@"Signoff: %@", username);
-    if ([username isEqualToString:_xmppfriend])
+    if ([username isEqualToString:[[_xmppfriend stringByAppendingFormat:@"@ohthou.com"] lowercaseString]])
         [_statusItem setImage:[NSImage imageNamed:@"(h)_offline.png"]];
 }
 
