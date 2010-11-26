@@ -70,6 +70,7 @@
 - (void) signUp;
 - (void) addStatusBarIcon;
 - (void) prepareApplication;
+- (void) setMenu:(BOOL)online;
 
 @property (assign) IBOutlet NSWindow *window;
 

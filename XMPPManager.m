@@ -230,7 +230,7 @@
             return;
     } 
 
-    if (self.yourFriend && [[[presence from] bare] isEqualToString:[[self.yourFriend stringByAppendingString:@"@ohthou.com"] lowercaseString]])
+//    if (self.yourFriend && [[[presence from] bare] isEqualToString:[[self.yourFriend stringByAppendingString:@"@ohthou.com"] lowercaseString]])
     {
         if ([[presence type] isEqualToString:@"available"])
         {

@@ -22,11 +22,21 @@
     [_tableView setDataSource:self];
     
     [self refreshDatasource];
+    
+    [self runRefreshDatasourceInterval];
+}
+
+- (void) runRefreshDatasourceInterval
+{
+    if ([[self window] isVisible])
+    {
+        [self refreshDatasource];
+        [self performSelector:@selector(runRefreshDatasourceInterval) withObject:nil afterDelay:5.0];        
+    }
 }
 
 - (void) refreshDatasource
 {
-    [_items removeAllObjects];
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/users/%@/match?api_version=1.0", SERVER_ROOT_URL, [[NSApp delegate] userID]]];
     __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
@@ -37,7 +47,7 @@
         // Use when fetching text data
         NSString *responseString = [request responseString];
         NSDictionary *response = [responseString JSONValue];
-        
+        [_items removeAllObjects];
         for (NSDictionary *friend in [response objectForKey:@"possible_friends"])
         {
             Friend *possible_friend = [[Friend alloc] initWithDictionary:friend];

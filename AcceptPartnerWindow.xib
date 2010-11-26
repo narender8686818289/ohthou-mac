@@ -21,7 +21,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="4"/>
+			<integer value="3"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -52,7 +52,7 @@
 				<int key="NSWindowStyleMask">31</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{801, 430}, {270, 349}}</string>
-				<int key="NSWTFlags">-1535639552</int>
+				<int key="NSWTFlags">-461897728</int>
 				<string key="NSWindowTitle">Oh Thou</string>
 				<string key="NSWindowClass">NSPanel</string>
 				<nil key="NSViewClass"/>

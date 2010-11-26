@@ -79,6 +79,10 @@
     
     [_acceptPartner close];
     
+    [[NSStatusBar systemStatusBar] removeStatusItem:_statusItem];
+    [_statusItem release];
+    _statusItem = nil;
+    
     [self prepareApplication];
 }
 
@@ -97,14 +101,13 @@
     }
 }
 
-- (void) addStatusBarIcon
-{
-    _statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
+- (void) setMenu:(BOOL)online {
     NSMenu *menu = [[NSMenu alloc] init];
 
-    NSMenuItem *usernameItem = [[[NSMenuItem alloc] init] autorelease];
+    NSMenuItem *usernameItem = [[NSMenuItem alloc] init];
     [usernameItem setTitle:[_friend.name stringByAppendingString:@" *wink*"]];
-    [usernameItem setAction:@selector(sendmessage:)];
+    if (online)
+        [usernameItem setAction:@selector(sendmessage:)];
     [usernameItem setImage:_friend.thumbImage];
     NSMenuItem *logoutItem = [[[NSMenuItem alloc] initWithTitle:@"Disconnect" action:@selector(removeAllUserDefaults:) keyEquivalent:@""] autorelease];
 
@@ -112,8 +115,20 @@
     [menu addItem:usernameItem];
     [menu addItem:[NSMenuItem separatorItem]];
     [menu addItem:logoutItem];
-    
+
     [_statusItem setMenu:[menu autorelease]];
+
+}
+
+- (void) addStatusBarIcon
+{
+    if (_statusItem != nil)
+        return;
+    
+    _statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
+
+    [self setMenu:NO];
+
     [_statusItem setImage:[NSImage imageNamed:@"(h)_offline.png"]];
     [_statusItem setHighlightMode:YES];  
 }
@@ -124,6 +139,12 @@
 
 - (void) prepareApplication
 {
+    _friend = nil;
+    _xmppusername = nil;
+    _xmpppassword = nil;
+    _xmppfriend = nil;
+    _userID = nil;
+    
     [_xmppStream addDelegate:self];
 	[_xmppReconnect addDelegate:self];
 	[_xmppCapabilities addDelegate:self];
@@ -321,6 +342,7 @@
     {
         [self performSelector:@selector(animate) withObject:nil afterDelay:0.05];
     } else {
+        [_statusItem setImage:[NSImage imageNamed:[NSString stringWithFormat:@"(h)_%d", counter]]];
         counter = 10;
         repeat = 10;
     }
@@ -349,20 +371,32 @@
         [_acceptPartner showWindow:self];
         [_acceptPartner refreshDatasource];
     }
+    else if ([message isEqualToString:@"accept"] && _xmppfriend)
+    {
+        // set friend to online
+        [_statusItem setImage:[NSImage imageNamed:@"(h).png"]];
+        [self setMenu:YES];    
+    }
 }
 
 -(void)managerDidReceiveSignonForUser:(NSString*)username
 {
     NSLog(@"Signon: %@", username);
     if ([username isEqualToString:[[_xmppfriend stringByAppendingFormat:@"@ohthou.com"] lowercaseString]])
+    {
         [_statusItem setImage:[NSImage imageNamed:@"(h).png"]];
+        [self setMenu:YES];
+    }
 }
 
 -(void)managerDidReceiveLogoffForUser:(NSString*)username
 {
     NSLog(@"Signoff: %@", username);
     if ([username isEqualToString:[[_xmppfriend stringByAppendingFormat:@"@ohthou.com"] lowercaseString]])
+    {
         [_statusItem setImage:[NSImage imageNamed:@"(h)_offline.png"]];
+        [self setMenu:NO];
+    }
 }
 
 -(void)managerDidReceiveBuddyRequestFrom:(XMPPJID*)jid
