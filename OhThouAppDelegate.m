@@ -310,13 +310,23 @@
 #pragma mark XMPPManager delegate
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+- (void) showAcceptWindow
+{
+    [_acceptPartner showWindow:self];
+    NSRect mainScreenFrame = [[NSScreen mainScreen] frame];
+    NSPoint newOrigin;
+    newOrigin.x = mainScreenFrame.size.width - [[_acceptPartner window] frame].size.width;
+    newOrigin.y = mainScreenFrame.size.height - [[_acceptPartner window] frame].size.height;
+    [[_acceptPartner window] setFrameOrigin:newOrigin];
+}
+
 -(void)managerDidConnect
 {
     NSLog(@"connected");
     
     if (_friend == nil)
     {
-        [_acceptPartner showWindow:self];
+        [self showAcceptWindow];
     } else {
         [self addStatusBarIcon];  
     }
@@ -368,7 +378,7 @@
     }
     else if ([message isEqualToString:@"accept"] && _xmppfriend == nil)
     {
-        [_acceptPartner showWindow:self];
+        [self showAcceptWindow];
         [_acceptPartner refreshDatasource];
     }
     else if ([message isEqualToString:@"accept"] && _xmppfriend)
@@ -436,6 +446,7 @@
     else
         [_spinner stopAnimation:nil];
     
+    [_connectButton setEnabled:!enabled];
     [_spinner setHidden:!enabled];
     [_saveChangesLabel setHidden:!enabled];
 }
@@ -532,6 +543,19 @@
         [self setSaveChangesEnabled:NO];
     }];
     [request startAsynchronous];
+}
+
+- (IBAction) done:(id)sender
+{
+    // Create a new backend user only if fields change
+    if ([[_name stringValue] isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"kName"]] &&
+        [[_sentence stringValue] isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"kSentence"]])
+    {
+        return;
+    } 
+    
+    [self setSaveChangesEnabled:YES];
+    [self retrieveXMPPName];
 }
 
 #pragma mark -

@@ -83,10 +83,10 @@
 
 #pragma mark -
 #pragma mark TableView Delegate
-//- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
-//{
-//    return 30.0;
-//}
+- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
+{
+    return 30.0;
+}
 
 - (NSCell *)tableView:(NSTableView *)tableView dataCellForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
@@ -102,6 +102,7 @@
     else if ([[tableColumn identifier] isEqualToString:@"accept"])
     {
         cell = [[NSButtonCell alloc] initTextCell:@"Accept"];
+        [cell setBezeled:YES];
         [cell setTag:row];
         [cell setTarget:self];
         [cell setAction:@selector(buttonclicked:)];

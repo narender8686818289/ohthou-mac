@@ -41,6 +41,7 @@
     IBOutlet NSTextField *_sentence;
     IBOutlet NSProgressIndicator *_spinner;
     IBOutlet NSTextField *_saveChangesLabel;
+    IBOutlet NSButton *_connectButton;
     
     NSString *_xmppusername;
     NSString *_xmpppassword;
@@ -61,6 +62,7 @@
 - (IBAction) pickAvatar:(id)sender;
 - (IBAction) showPreferences:(id)sender;
 - (IBAction) removeAllUserDefaults:(id)sender;
+- (IBAction) done:(id)sender;
 
 - (CBIdentity*)getUserInformation;
 - (BOOL) hasAvatar;
