@@ -21,11 +21,18 @@
     [_tableView setDelegate:self];
     [_tableView setDataSource:self];
     
+    [self refreshDatasource];
+}
+
+- (void) refreshDatasource
+{
+    [_items removeAllObjects];
+    
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/users/%@/match?api_version=1.0", SERVER_ROOT_URL, [[NSApp delegate] userID]]];
     __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     [request setDelegate:self];
     [self setSaveChangesEnabled:YES];
-
+    
     [request setCompletionBlock:^{
         // Use when fetching text data
         NSString *responseString = [request responseString];
@@ -38,9 +45,9 @@
             [_items addObject:[possible_friend autorelease]];
         }
         [self setSaveChangesEnabled:NO];
-      
+        
         [_tableView reloadData];
-       // [_tableView setNeedsDisplay];
+        // [_tableView setNeedsDisplay];
     }];
     [request setFailedBlock:^{
         [self setSaveChangesEnabled:NO];
@@ -49,8 +56,6 @@
         [self.window presentError:error];
     }];
     [request startAsynchronous];
-    
-    
 }
 
 

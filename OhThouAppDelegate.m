@@ -150,6 +150,8 @@
     {
         [_manager loginWithUsername:_xmppusername password:_xmpppassword];
     }
+    
+    _acceptPartner = [[AcceptPartnerWindowController alloc] initWithWindowNibName:@"AcceptPartnerWindow"];    
 }
 
 - (IBAction) pickAvatar:(id)sender
@@ -256,9 +258,7 @@
     
     if (_friend == nil)
     {
-        AcceptPartnerWindowController *partnersWindow = [[AcceptPartnerWindowController alloc] initWithWindowNibName:@"AcceptPartnerWindow"];
-        [partnersWindow showWindow:self];
-        [partnersWindow autorelease];
+        [_acceptPartner showWindow:self];
     } else {
         _statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
         [_statusItem setImage:[NSImage imageNamed:@"(h)_offline.png"]];
@@ -308,6 +308,11 @@
         {
             [self animateStatusIcon];
         }
+    }
+    else if ([message isEqualToString:@"accept"])
+    {
+        [_acceptPartner showWindow:self];
+        [_acceptPartner refreshDatasource];
     }
 }
 

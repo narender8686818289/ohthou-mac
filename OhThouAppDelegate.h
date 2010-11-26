@@ -20,6 +20,7 @@
 
 @class CBIdentity;
 @class Friend;
+@class AcceptPartnerWindowController;
 
 @interface OhThouAppDelegate : NSObject <NSApplicationDelegate,XMPPManagerDelegate> {
 	XMPPStream *_xmppStream;
@@ -52,6 +53,8 @@
     
     int counter;
     int repeat;
+    
+    AcceptPartnerWindowController *_acceptPartner;
 }
 
 - (IBAction) sendmessage:(id)sender;
