@@ -66,7 +66,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults removePersistentDomainForName:@"com.ohthou.client.mac"];
 	// com.yourcompany.appname is the Bundle Identifier for this app
-	[defaults synchronize];    
+	[defaults synchronize];
 }
 
 - (void) setMyfriend:(Friend *)f
@@ -77,6 +77,13 @@
     [[NSUserDefaults standardUserDefaults] setObject:[_friend dictionaryValue] forKey:@"kFriendDict"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     _manager.yourFriend = [f.jabberName stringByAppendingString:@"@ohthou.com"];
+    
+    if ([_xmppStream isAuthenticated] && _statusItem == nil)
+    {
+        _statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
+        [_statusItem setImage:[NSImage imageNamed:@"(h)_offline.png"]];
+        [_statusItem setHighlightMode:YES];        
+    }
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
