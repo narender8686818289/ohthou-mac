@@ -17,6 +17,7 @@
 		3E53D69C129F250400418D77 /* (h)_9.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E53D696129F250400418D77 /* (h)_9.png */; };
 		3E53D69D129F250400418D77 /* (h)_10.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E53D697129F250400418D77 /* (h)_10.png */; };
 		3E53D6A3129F256400418D77 /* (h)_offline.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E53D6A2129F256400418D77 /* (h)_offline.png */; };
+		3E61E12212A021460004710B /* doubleheart.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3E61E12112A021460004710B /* doubleheart.icns */; };
 		3EAE7F68129EED5700C9FA31 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAE7F5F129EED5700C9FA31 /* NSObject+SBJSON.m */; };
 		3EAE7F69129EED5700C9FA31 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAE7F61129EED5700C9FA31 /* NSString+SBJSON.m */; };
 		3EAE7F6A129EED5700C9FA31 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAE7F63129EED5700C9FA31 /* SBJsonBase.m */; };
@@ -131,6 +132,7 @@
 		3E53D696129F250400418D77 /* (h)_9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "(h)_9.png"; sourceTree = "<group>"; };
 		3E53D697129F250400418D77 /* (h)_10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "(h)_10.png"; sourceTree = "<group>"; };
 		3E53D6A2129F256400418D77 /* (h)_offline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "(h)_offline.png"; sourceTree = "<group>"; };
+		3E61E12112A021460004710B /* doubleheart.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = doubleheart.icns; sourceTree = "<group>"; };
 		3EAE7F5D129EED5700C9FA31 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		3EAE7F5E129EED5700C9FA31 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		3EAE7F5F129EED5700C9FA31 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 			isa = PBXGroup;
 			children = (
 				3EDFD60A129F6E44001059B8 /* heart.icns */,
+				3E61E12112A021460004710B /* doubleheart.icns */,
 				3EDFD669129F81DD001059B8 /* hearts_together.png */,
 				3E53D6A2129F256400418D77 /* (h)_offline.png */,
 				3EAE8167129F0F4500C9FA31 /* (h).png */,
@@ -803,6 +806,7 @@
 				3E53D6A3129F256400418D77 /* (h)_offline.png in Resources */,
 				3EDFD60B129F6E44001059B8 /* heart.icns in Resources */,
 				3EDFD66A129F81DD001059B8 /* hearts_together.png in Resources */,
+				3E61E12212A021460004710B /* doubleheart.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

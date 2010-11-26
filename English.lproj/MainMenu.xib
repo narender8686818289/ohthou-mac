@@ -1511,7 +1511,7 @@
 								<int key="NSCellFlags2">272629760</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="315396234"/>
-								<string key="NSPlaceholderString">i.e. "Love looks not with the eyes but with the mind."</string>
+								<string key="NSPlaceholderString">e.g. "Love looks not with the eyes but with the mind."</string>
 								<reference key="NSControlView" ref="1050669888"/>
 								<bool key="NSDrawsBackground">YES</bool>
 								<reference key="NSBackgroundColor" ref="769137166"/>
