@@ -344,6 +344,7 @@
     
     if (counter == 4)
     {
+		[NSApp requestUserAttention: NSInformationalRequest];
         repeat -= 1;
         counter = 10;
     }
