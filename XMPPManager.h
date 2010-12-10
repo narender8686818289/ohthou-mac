@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "XMPPJID.h"
 
+@class XMPPRoster;
+
 @protocol XMPPManagerDelegate
 
 -(void)managerDidConnect;
@@ -41,6 +43,7 @@
 - (void) sendMessageToUser:(NSString*)username message:(NSString*)msg;
 - (void) addBuddy:(NSString*)buddy withNickname:(NSString*)nickname;
 - (void) removeBuddy:(NSString*)buddy;
+- (XMPPRoster *)xmppRoster;
 
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *password;
