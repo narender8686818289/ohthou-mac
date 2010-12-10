@@ -384,17 +384,6 @@
             [self animateStatusIcon];
         }
     }
-    else if ([message isEqualToString:@"accept"] && _xmppfriend == nil)
-    {
-        [self showAcceptWindow];
-        [_acceptPartner refreshDatasource];
-    }
-    else if ([message isEqualToString:@"accept"] && _xmppfriend)
-    {
-        // set friend to online
-        [_statusItem setImage:[NSImage imageNamed:@"(h).png"]];
-        [self setMenu:YES];    
-    }
 }
 
 -(void)managerDidReceiveSignonForUser:(NSString*)username
@@ -419,7 +408,7 @@
 
 -(void)managerDidReceiveBuddyRequestFrom:(XMPPJID*)jid
 {
-    if ([[jid bare] isEqualToString:_xmppfriend])
+    if ([[jid bare] isEqualToString:[[_xmppfriend stringByAppendingFormat:@"@ohthou.com"] lowercaseString]])
     {
         [_xmppRoster acceptBuddyRequest:jid];
     }

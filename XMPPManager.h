@@ -38,7 +38,7 @@
 - (void) startup;
 - (void) loginWithUsername:(NSString*)username password:(NSString*)password;
 - (void) sendMessageToUser:(NSString*)username;
-- (void)sendMessageToUser:(NSString*)username message:(NSString*)msg;
+- (void) sendMessageToUser:(NSString*)username message:(NSString*)msg;
 - (void) addBuddy:(NSString*)buddy withNickname:(NSString*)nickname;
 - (void) removeBuddy:(NSString*)buddy;
 

@@ -225,20 +225,21 @@
             return;
     } 
 
-    if ([[presence type] isEqualToString:@"available"])
+    if ([[presence type] isEqualToString:@"unavailable"])
+    {
+        [self.delegate managerDidReceiveLogoffForUser:[[presence from] bare]];
+    }  
+    else
     {
         [self.delegate managerDidReceiveSignonForUser:[[presence from] bare]];
     }
-    else if ([[presence type] isEqualToString:@"unavailable"])
-    {
-        [self.delegate managerDidReceiveLogoffForUser:[[presence from] bare]];
-    }        
+ 
     [_lastPresenceUpdateForUser setObject:[NSDate date] forKey:key];
 }
 
 - (void)xmppRosterDidChange:(XMPPRosterMemoryStorage *)sender
 {
-    // NSLog(@"---------- xmppRosterDidChange ----------");
+    NSLog(@"---------- xmppRosterDidChange ----------");
 
 }
 
