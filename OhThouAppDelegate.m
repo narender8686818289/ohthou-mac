@@ -137,6 +137,12 @@
     [self prepareApplication];
 }
 
+- (void)applicationWillTerminate:(NSNotification *)notification 
+{
+    if ([_xmppStream isConnected])
+        [_xmppStream disconnect];
+}
+
 - (void) prepareApplication
 {
     _friend = nil;
