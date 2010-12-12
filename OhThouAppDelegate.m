@@ -163,9 +163,9 @@
     // set user image
     if (![self hasAvatar])
     {
-        CBIdentity *identiy = [self getUserInformation];
-        _avatarImageView.image = [identiy image];        
-        [[[identiy image] TIFFRepresentation] writeToFile:[self pathForAvatarFile] atomically:YES];
+        CBIdentity *identity = [self getUserInformation];
+        _avatarImageView.image = [identity image];        
+        [[[identity image] TIFFRepresentation] writeToFile:[self pathForAvatarFile] atomically:YES];
     }
     else 
     {
@@ -182,7 +182,16 @@
     // set name and sentence
     NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"kName"];    
     if (name)
+    {
         [_name setStringValue:name];
+    }
+    else 
+    {
+        CBIdentity *identity = [self getUserInformation];
+        name = [identity fullName];
+        [_name setStringValue:name];
+    }
+
     
     NSString *sentence = [[NSUserDefaults standardUserDefaults] objectForKey:@"kSentence"];
     if (sentence)
