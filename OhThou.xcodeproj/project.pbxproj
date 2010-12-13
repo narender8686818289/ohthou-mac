@@ -112,6 +112,9 @@
 		3EEF2BF512B5A996005416A5 /* (h)_sending_15.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF2BE312B5A996005416A5 /* (h)_sending_15.png */; };
 		3EEF2BF612B5A996005416A5 /* (h)_sending_16.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF2BE412B5A996005416A5 /* (h)_sending_16.png */; };
 		3EEF2BF712B5A996005416A5 /* (h)_sending_17.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF2BE512B5A996005416A5 /* (h)_sending_17.png */; };
+		3EEF2C2612B5B0AC005416A5 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEF2C2512B5B0AC005416A5 /* Sparkle.framework */; };
+		3EEF2C3612B5B0C4005416A5 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EEF2C2512B5B0AC005416A5 /* Sparkle.framework */; };
+		3EEF2C3E12B5B1BE005416A5 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF2C3D12B5B1BE005416A5 /* dsa_pub.pem */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -124,6 +127,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				3EEF2C3612B5B0C4005416A5 /* Sparkle.framework in CopyFiles */,
 				3EAFFAEE129ED36D004D0AFB /* BWToolkitFramework.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -318,6 +322,8 @@
 		3EEF2BE312B5A996005416A5 /* (h)_sending_15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "(h)_sending_15.png"; sourceTree = "<group>"; };
 		3EEF2BE412B5A996005416A5 /* (h)_sending_16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "(h)_sending_16.png"; sourceTree = "<group>"; };
 		3EEF2BE512B5A996005416A5 /* (h)_sending_17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "(h)_sending_17.png"; sourceTree = "<group>"; };
+		3EEF2C2512B5B0AC005416A5 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		3EEF2C3D12B5B1BE005416A5 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* OhThou-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OhThou-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* OhThou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OhThou.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -338,6 +344,7 @@
 				3EAFFB0E129EDB27004D0AFB /* Quartz.framework in Frameworks */,
 				3EAFFBD1129EEA7D004D0AFB /* CoreServices.framework in Frameworks */,
 				3EAFFC3B129EEB66004D0AFB /* libz.1.2.3.dylib in Frameworks */,
+				3EEF2C2612B5B0AC005416A5 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +387,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3EEF2C2512B5B0AC005416A5 /* Sparkle.framework */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
@@ -456,6 +464,7 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				3EAE8030129F00CC00C9FA31 /* AcceptPartnerWindow.xib */,
+				3EEF2C3D12B5B1BE005416A5 /* dsa_pub.pem */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -879,6 +888,7 @@
 				3EEF2BF512B5A996005416A5 /* (h)_sending_15.png in Resources */,
 				3EEF2BF612B5A996005416A5 /* (h)_sending_16.png in Resources */,
 				3EEF2BF712B5A996005416A5 /* (h)_sending_17.png in Resources */,
+				3EEF2C3E12B5B1BE005416A5 /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -987,6 +997,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/BWToolkit\"",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -1014,6 +1025,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/BWToolkit\"",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
