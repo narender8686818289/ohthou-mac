@@ -258,6 +258,7 @@
 
 - (IBAction) sendmessage:(id)sender
 {
+	[self startSendingAnimation];
     [_manager sendMessageToUser:[_xmppfriend stringByAppendingString:@"@ohthou.com"]];
 }
 
@@ -378,15 +379,48 @@
         [_statusItem setImage:[NSImage imageNamed:[NSString stringWithFormat:@"(h)_%d", counter]]];
         counter = 10;
         repeat = 10;
+		animating = NO;
     }
   
 }
 
+- (void) animateSending
+{
+    [_statusItem setImage:[NSImage imageNamed:[NSString stringWithFormat:@"(h)_sending_%d", counter++]]];
+    
+    if (counter == 18)
+	{
+		[self performSelector:@selector(animateSending) withObject:nil afterDelay:1.0];
+	}
+	else if (counter == 19)
+    {
+        [_statusItem setImage:[NSImage imageNamed:[NSString stringWithFormat:@"(h)", counter]]];
+        counter = 0;
+		animating = NO;
+    } else {
+		[self performSelector:@selector(animateSending) withObject:nil afterDelay:0.025];
+	}
+}
+
+
 - (void) animateStatusIcon
 {
+	if (animating)
+		return;
     counter = 10;
     repeat = 10;
+	animating = YES;
     [self animate];
+}
+
+- (void) startSendingAnimation
+{	
+	if (animating)
+		return;
+	
+	animating = YES;
+	counter = 0;
+	[self animateSending];
 }
 
 -(void)managerDidReceiveMessage:(NSString*)message fromUser:(NSString*)username
