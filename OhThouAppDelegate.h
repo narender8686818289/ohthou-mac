@@ -54,6 +54,7 @@
     
     int counter;
     int repeat;
+	BOOL animating;
     
     AcceptPartnerWindowController *_acceptPartner;
 }
